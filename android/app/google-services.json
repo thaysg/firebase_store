@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1038779679778",
+    "firebase_url": "https://fir-f24fb.firebaseio.com",
+    "project_id": "fir-f24fb",
+    "storage_bucket": "fir-f24fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038779679778:android:f535e784525cf4b515f67b",
+        "android_client_info": {
+          "package_name": "thaysgarcia.firebase_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1038779679778-b1r18lqvfvp5ejq0b0p1bpdsj7tvt5u9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCd4PpYQ0Hb0Udne-PluZkGkrLIx_SBGUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1038779679778-b1r18lqvfvp5ejq0b0p1bpdsj7tvt5u9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
