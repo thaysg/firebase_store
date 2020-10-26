@@ -44,7 +44,10 @@ class ProductsScreen extends StatelessWidget {
           Consumer<ProductManager>(builder: (_, productManager, __) {
             if (productManager.search.isEmpty) {
               return IconButton(
-                  icon: const Icon(Icons.search),
+                  icon: const Icon(
+                    FontAwesomeIcons.search,
+                    size: 22,
+                  ),
                   onPressed: () async {
                     final search = await showDialog<String>(
                         context: context,
@@ -66,9 +69,10 @@ class ProductsScreen extends StatelessWidget {
               return IconButton(
                   icon: const Icon(
                     FontAwesomeIcons.plus,
+                    size: 22,
                   ),
                   onPressed: () {
-                    Navigator.of(context).pushReplacementNamed(
+                    Navigator.of(context).pushNamed(
                       '/edit_product',
                     );
                   });

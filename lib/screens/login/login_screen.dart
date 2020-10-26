@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
           Colors.redAccent,
         ])),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(
               height: 40,
@@ -73,52 +73,51 @@ class LoginScreen extends StatelessWidget {
               height: 20,
             ),
             Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(60),
-                        topRight: Radius.circular(60))),
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(30),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              // ignore: prefer_const_literals_to_create_immutables
-                              boxShadow: [
-                                const BoxShadow(
-                                    color: Color.fromRGBO(225, 95, 27, .3),
-                                    blurRadius: 20,
-                                    offset: Offset(0, 10))
-                              ]),
-                          child: Column(
-                            children: [
-                              Form(
-                                key: formKey,
-                                child: Consumer<UserManager>(
-                                    builder: (_, userManager, __) {
-                                  return SingleChildScrollView(
-                                    padding: const EdgeInsets.all(16),
-                                    child: Column(
-                                      children: [
-                                        Image.asset('images/gs.png'),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        TextFormField(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(30),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            // ignore: prefer_const_literals_to_create_immutables
+                            boxShadow: [
+                              const BoxShadow(
+                                  color: Color.fromRGBO(225, 95, 27, .3),
+                                  blurRadius: 20,
+                                  offset: Offset(0, 10))
+                            ]),
+                        child: Column(
+                          children: [
+                            Form(
+                              key: formKey,
+                              child: Consumer<UserManager>(
+                                  builder: (_, userManager, __) {
+                                return SingleChildScrollView(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Column(
+                                    children: [
+                                      Image.asset('images/gs.png'),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            color: Colors.grey[100]),
+                                        child: TextFormField(
                                           controller: emailController,
                                           enabled: !userManager.loading,
                                           decoration: const InputDecoration(
-                                            hintText: 'E-mail',
-                                            prefixIcon: Icon(Icons.person),
-                                          ),
+                                              hintText: 'E-mail',
+                                              prefixIcon: Icon(Icons.person),
+                                              border: InputBorder.none),
                                           keyboardType:
                                               TextInputType.emailAddress,
                                           autocorrect: false,
@@ -129,18 +128,24 @@ class LoginScreen extends StatelessWidget {
                                             return null;
                                           },
                                         ),
-                                        const SizedBox(
-                                          height: 16,
-                                        ),
-                                        TextFormField(
+                                      ),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(50),
+                                            color: Colors.grey[100]),
+                                        child: TextFormField(
                                           controller: passController,
                                           enabled: !userManager.loading,
                                           decoration: const InputDecoration(
-                                            hintText: 'Senha',
-                                            prefixIcon: Icon(
-                                              Icons.lock,
-                                            ),
-                                          ),
+                                              hintText: 'Senha',
+                                              prefixIcon: Icon(
+                                                Icons.lock,
+                                              ),
+                                              border: InputBorder.none),
                                           autocorrect: false,
                                           obscureText: true,
                                           validator: (pass) {
@@ -151,102 +156,98 @@ class LoginScreen extends StatelessWidget {
                                             return null;
                                           },
                                         ),
-                                        const Align(
-                                          alignment: Alignment.centerRight,
-                                          child: FlatButton(
-                                              onPressed: null,
-                                              padding: EdgeInsets.zero,
-                                              child:
-                                                  Text('Esqueci minha senha')),
+                                      ),
+                                      const Align(
+                                        alignment: Alignment.centerRight,
+                                        child: FlatButton(
+                                            onPressed: null,
+                                            padding: EdgeInsets.zero,
+                                            child: Text('Esqueci minha senha')),
+                                      ),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      SizedBox(
+                                        height: 44,
+                                        child: RaisedButton(
+                                          onPressed: userManager.loading
+                                              ? null
+                                              : () {
+                                                  if (formKey.currentState
+                                                      .validate()) {
+                                                    userManager.signIn(
+                                                        user: User(
+                                                            email:
+                                                                emailController
+                                                                    .text,
+                                                            password:
+                                                                passController
+                                                                    .text),
+                                                        onFail: (e) {
+                                                          scaffoldKey
+                                                              .currentState
+                                                              .showSnackBar(
+                                                                  SnackBar(
+                                                            content: Text(
+                                                              'Falha ao entrar: $e',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                            backgroundColor:
+                                                                Colors.red,
+                                                          ));
+                                                        },
+                                                        onSuccess: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        });
+                                                  }
+                                                },
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(25)),
+                                          color: Theme.of(context).primaryColor,
+                                          disabledColor: Theme.of(context)
+                                              .primaryColor
+                                              .withAlpha(100),
+                                          textColor: Colors.white,
+                                          child: userManager.loading
+                                              ? const CircularProgressIndicator(
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation(
+                                                          Colors.red),
+                                                )
+                                              : const Text(
+                                                  'Entrar',
+                                                  style:
+                                                      TextStyle(fontSize: 18),
+                                                ),
                                         ),
-                                        const SizedBox(
-                                          height: 16,
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      FlatButton(
+                                        onPressed: () {
+                                          Navigator.of(context)
+                                              .pushReplacementNamed('/sign_up');
+                                        },
+                                        child: const Text(
+                                          'Ainda não Possui uma Conta'
+                                          '\nCrie uma Agora',
+                                          textAlign: TextAlign.center,
                                         ),
-                                        SizedBox(
-                                          height: 44,
-                                          child: RaisedButton(
-                                            onPressed: userManager.loading
-                                                ? null
-                                                : () {
-                                                    if (formKey.currentState
-                                                        .validate()) {
-                                                      userManager.signIn(
-                                                          user: User(
-                                                              email:
-                                                                  emailController
-                                                                      .text,
-                                                              password:
-                                                                  passController
-                                                                      .text),
-                                                          onFail: (e) {
-                                                            scaffoldKey
-                                                                .currentState
-                                                                .showSnackBar(
-                                                                    SnackBar(
-                                                              content: Text(
-                                                                'Falha ao entrar: $e',
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                              backgroundColor:
-                                                                  Colors.red,
-                                                            ));
-                                                          },
-                                                          onSuccess: () {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
-                                                          });
-                                                    }
-                                                  },
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25)),
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                            disabledColor: Theme.of(context)
-                                                .primaryColor
-                                                .withAlpha(100),
-                                            textColor: Colors.white,
-                                            child: userManager.loading
-                                                ? const CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation(
-                                                            Colors.red),
-                                                  )
-                                                : const Text(
-                                                    'Entrar',
-                                                    style:
-                                                        TextStyle(fontSize: 18),
-                                                  ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        FlatButton(
-                                          onPressed: () {
-                                            Navigator.of(context)
-                                                .pushReplacementNamed(
-                                                    '/sign_up');
-                                          },
-                                          child: const Text(
-                                            'Ainda não Possui uma Conta'
-                                            '\nCrie uma Agora',
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                }),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              }),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ),

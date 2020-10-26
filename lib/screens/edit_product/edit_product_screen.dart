@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 
 class EditProductScreen extends StatelessWidget {
   final Product product;
+  final bool editing;
 
   // ignore: use_key_in_widget_constructors
-  EditProductScreen(Product p) : product = p != null ? p : Product();
+  EditProductScreen(Product p)
+      : editing = p != null,
+        product = p != null ? p.clone() : Product();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -17,7 +20,7 @@ class EditProductScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar Produto'),
+        title: Text(editing ? 'Editar Produto' : 'Criar Anúncio'),
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
@@ -44,8 +47,17 @@ class EditProductScreen extends StatelessWidget {
                         return null;
                       }
                     },
+                    onSaved: (name) => product.name = name,
                   ),
-                  TextFormField(
+                  Text(
+                    'R\$ ${product.basePrice.toStringAsFixed(2)}',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: primaryColor,
+                    ),
+                  ),
+                  /*TextFormField(
                     initialValue: product.basePrice.toStringAsFixed(2),
                     decoration: const InputDecoration(
                         hintText: 'Preço',
@@ -56,13 +68,13 @@ class EditProductScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: Colors.blue[900]),
                     validator: (price) {
-                      if (price == 0) {
-                        return 'Digite o valor do Produto';
-                      } else {
-                        return null;
+                      if (num.tryParse(price) == null) {
+                        return 'Inválido';
                       }
+                      return null;
                     },
-                  ),
+                    //onSaved: (price) => product.price = price as num,
+                  ),*/
                   const Padding(
                     padding: EdgeInsets.only(top: 16, bottom: 8),
                     child: Text(
@@ -87,6 +99,7 @@ class EditProductScreen extends StatelessWidget {
                         return null;
                       }
                     },
+                    onSaved: (desc) => product.description = desc,
                   ),
                   SizesForm(product),
                   const SizedBox(
@@ -100,9 +113,11 @@ class EditProductScreen extends StatelessWidget {
                       textColor: Colors.white,
                       onPressed: () {
                         if (formKey.currentState.validate()) {
-                          print('válido');
-                        } else {
-                          print('inválido');
+                          formKey.currentState.save();
+
+                          print(product);
+
+                          product.save();
                         }
                       },
                       child: const Text(
