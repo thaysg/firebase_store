@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_store/models/product_manager.dart';
 import 'package:firebase_store/models/section_item.dart';
 import 'package:flutter/material.dart';
@@ -26,14 +28,18 @@ class ItemTile extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(10),
-              child: Image.network(
-                item.image,
-                height: 100,
-                //fit: BoxFit.fitHeight,
-              ),
-            ),
-            Padding(
+                padding: const EdgeInsets.all(10),
+                child: item.image is String
+                    ? Image.network(
+                        item.image as String,
+                        height: 100,
+                        //fit: BoxFit.fitHeight,
+                      )
+                    : Image.file(
+                        item.image as File,
+                        fit: BoxFit.contain,
+                      )),
+            /*Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 item.title,
@@ -43,7 +49,7 @@ class ItemTile extends StatelessWidget {
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               ),
-            )
+            )*/
           ],
         ),
       ),

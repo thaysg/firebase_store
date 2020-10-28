@@ -6,13 +6,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class SectionHeader extends StatelessWidget {
-  final Section section;
-  // ignore: use_key_in_widget_constructors
-  const SectionHeader(this.section);
-
   @override
   Widget build(BuildContext context) {
     final homeManager = context.watch<HomeManager>();
+    final section = context.watch<Section>();
+
     if (homeManager.editing) {
       return Row(
         children: [
