@@ -8,6 +8,7 @@ import 'package:firebase_store/screens/cart/cart_screen.dart';
 import 'package:firebase_store/screens/detail_product/detail_product_screen.dart';
 import 'package:firebase_store/screens/edit_product/edit_product_screen.dart';
 import 'package:firebase_store/screens/login/login_screen.dart';
+import 'package:firebase_store/screens/selected_product/selected_product_screen.dart';
 import 'package:firebase_store/screens/sign_up/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -78,6 +79,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(
                   builder: (_) =>
                       EditProductScreen(settings.arguments as Product));
+            case '/selected_product':
+              return MaterialPageRoute(builder: (_) => SelectedProductScreen());
             case '/base':
             default:
               return MaterialPageRoute(builder: (_) => BaseScreen());

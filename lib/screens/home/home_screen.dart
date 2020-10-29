@@ -71,7 +71,9 @@ class HomeScreen extends StatelessWidget {
                 case 'carousel':
                   return SectionCarousel(section);
                 case 'List':
-                  return SectionList(section);
+                  return SectionList(
+                    section,
+                  );
                 case 'Staggered':
                   return SectionStaggered(section);
                 default:

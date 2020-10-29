@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_store/models/home_manager.dart';
+import 'package:firebase_store/models/product.dart';
 import 'package:firebase_store/models/product_manager.dart';
 import 'package:firebase_store/models/section.dart';
 import 'package:firebase_store/models/section_item.dart';
@@ -34,8 +35,20 @@ class ItemTile extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (_) {
+                    final product = context
+                        .read<ProductManager>()
+                        .findProductByID(item.product);
                     return AlertDialog(
                       title: const Text('Editar Item'),
+                      content: product != null
+                          ? ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: Image.network(product.images.first),
+                              title: Text(product.name),
+                              subtitle: Text(
+                                  'R\$ ${product.basePrice.toStringAsFixed(2)}'),
+                            )
+                          : null,
                       actions: [
                         FlatButton(
                             onPressed: () {
@@ -43,7 +56,22 @@ class ItemTile extends StatelessWidget {
                               Navigator.of(context).pop();
                             },
                             textColor: Colors.red,
-                            child: const Text('Excluir'))
+                            child: const Text('Excluir')),
+                        FlatButton(
+                            onPressed: () async {
+                              if (product != null) {
+                                item.product = null;
+                              } else {
+                                final Product product =
+                                    await Navigator.of(context)
+                                            .pushNamed('/selected_product')
+                                        as Product;
+                                item.product = product?.id;
+                              }
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                                product != null ? 'Desvincular' : 'Vincular'))
                       ],
                     );
                   });
@@ -52,19 +80,16 @@ class ItemTile extends StatelessWidget {
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: item.image is String
-                ? FadeInImage.memoryNetwork(
-                    placeholder: kTransparentImage,
-                    image: item.image as String,
-                    fit: BoxFit.cover,
-                  )
-                : Image.file(
-                    item.image as File,
-                    fit: BoxFit.cover,
-                  ),
-          ),
+          child: item.image is String
+              ? FadeInImage.memoryNetwork(
+                  placeholder: kTransparentImage,
+                  image: item.image as String,
+                  fit: BoxFit.cover,
+                )
+              : Image.file(
+                  item.image as File,
+                  fit: BoxFit.cover,
+                ),
         ),
       ),
     );
