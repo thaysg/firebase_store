@@ -19,31 +19,33 @@ class SectionList extends StatelessWidget {
     return ChangeNotifierProvider.value(
       value: section,
       child: Container(
-        margin: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             SectionHeader(),
             SizedBox(
-              height: 170,
-              child: Consumer<Section>(builder: (_, section, __) {
-                return ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (_, index) {
-                    if (index < section.items.length) {
-                      return ItemTile(section.items[index]);
-                    } else {
-                      return ItemTileWidget();
-                    }
-                  },
-                  separatorBuilder: (_, __) => const SizedBox(
-                    width: 4,
-                  ),
-                  itemCount: homeManager.editing
-                      ? section.items.length + 1
-                      : section.items.length,
-                );
-              }),
+              height: 150,
+              child: Consumer<Section>(
+                builder: (_, section, __) {
+                  return ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (_, index) {
+                      if (index < section.items.length) {
+                        return ItemTile(section.items[index]);
+                      } else {
+                        return AddTileWidget();
+                      }
+                    },
+                    separatorBuilder: (_, __) => const SizedBox(
+                      width: 4,
+                    ),
+                    itemCount: homeManager.editing
+                        ? section.items.length + 1
+                        : section.items.length,
+                  );
+                },
+              ),
             )
           ],
         ),
