@@ -78,9 +78,6 @@ class LoginScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(30),
                   child: Column(
                     children: [
-                      const SizedBox(
-                        height: 30,
-                      ),
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -101,6 +98,8 @@ class LoginScreen extends StatelessWidget {
                                 return SingleChildScrollView(
                                   padding: const EdgeInsets.all(16),
                                   child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
                                     children: [
                                       Image.asset('images/gs.png'),
                                       const SizedBox(

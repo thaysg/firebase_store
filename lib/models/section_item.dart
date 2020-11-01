@@ -14,9 +14,16 @@ class SectionItem {
   SectionItem clone() {
     return SectionItem(
       image: image,
-      title: title,
+      //title: title,
       product: product,
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'image': image,
+      'product': product,
+    };
   }
 
   @override

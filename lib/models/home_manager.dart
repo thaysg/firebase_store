@@ -8,22 +8,23 @@ class HomeManager extends ChangeNotifier {
   }
 
   void addSection(Section section) {
-    _editingSection.add(section);
+    _editingSections.add(section);
     notifyListeners();
   }
 
   void removeSection(Section section) {
-    _editingSection.remove(section);
+    _editingSections.remove(section);
     notifyListeners();
   }
 
   final List<Section> _sections = [];
 
   //Clonando Sessão
-  List<Section> _editingSection = [];
+  List<Section> _editingSections = [];
   //Clonando Sessão
 
   bool editing = false;
+  bool loading = false;
 
   Firestore firestore = Firestore.instance;
 
@@ -39,7 +40,7 @@ class HomeManager extends ChangeNotifier {
 
   List<Section> get sections {
     if (editing) {
-      return _editingSection;
+      return _editingSections;
     } else {
       return _sections;
     }
@@ -49,24 +50,33 @@ class HomeManager extends ChangeNotifier {
   void enterEditing() {
     editing = true;
 
-    _editingSection = _sections.map((s) => s.clone()).toList();
+    _editingSections = _sections.map((s) => s.clone()).toList();
     notifyListeners();
   }
 
-  void saveEditing() {
-    //editing = false;
-    //SnotifyListeners();
+  Future<void> saveEditing() async {
     bool valid = true;
-    for (final section in _editingSection) {
+    for (final section in _editingSections) {
       if (!section.valid()) valid = false;
     }
+    if (valid) return;
 
-    if (!valid) return;
+    loading = true;
+    notifyListeners();
 
-    print('Salvar');
+    for (final section in _editingSections) {
+      await section.save();
+    }
 
-    //editing = false;
-    //notifyListeners();
+    for (final section in List.from(_sections)) {
+      if (!_editingSections.any((element) => element.id == section.id)) {
+        await section.delete();
+      }
+    }
+
+    loading = false;
+    editing = false;
+    notifyListeners();
   }
 
   void discardEditing() {
