@@ -3,6 +3,7 @@ import 'package:firebase_store/models/home_manager.dart';
 import 'package:firebase_store/models/product.dart';
 import 'package:firebase_store/models/product_manager.dart';
 import 'package:firebase_store/models/user_manager.dart';
+import 'package:firebase_store/screens/adress/adress_screen.dart';
 import 'package:firebase_store/screens/base/base_screen.dart';
 import 'package:firebase_store/screens/cart/cart_screen.dart';
 import 'package:firebase_store/screens/detail_product/detail_product_screen.dart';
@@ -75,6 +76,8 @@ class MyApp extends StatelessWidget {
                       DetailProductScreen(settings.arguments as Product));
             case '/cart':
               return MaterialPageRoute(builder: (_) => CartScreen());
+            case '/adress':
+              return MaterialPageRoute(builder: (_) => AdressScreen());
             case '/edit_product':
               return MaterialPageRoute(
                   builder: (_) =>

@@ -60,12 +60,18 @@ class PriceCard extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            RaisedButton(
-              onPressed: onPressed,
-              color: Theme.of(context).primaryColor,
-              disabledColor: Theme.of(context).primaryColor.withAlpha(100),
-              textColor: Colors.white,
-              child: Text(buttonText),
+            SizedBox(
+              height: 44,
+              child: RaisedButton(
+                onPressed: onPressed,
+                color: Theme.of(context).primaryColor,
+                disabledColor: Theme.of(context).primaryColor.withAlpha(100),
+                textColor: Colors.white,
+                child: Text(
+                  buttonText,
+                  style: const TextStyle(fontSize: 18),
+                ),
+              ),
             )
           ],
         ),

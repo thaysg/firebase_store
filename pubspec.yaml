@@ -24,9 +24,11 @@ dependencies:
   flutter:
     sdk: flutter
   alphabet_list_scroll_view: ^1.0.6
+  brasil_fields: ^0.4.0
   carousel_pro: ^1.0.0
   cloud_firestore: ^0.13.6
   cupertino_icons: ^1.0.0
+  dio: ^3.0.10
   faker: ^1.2.1
   firebase_auth: ^0.16.1
   firebase_storage: ^3.1.6
