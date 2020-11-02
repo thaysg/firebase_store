@@ -27,8 +27,8 @@ class AdressCart extends StatelessWidget {
                         fontSize: 16,
                       ),
                     ),
-                    CepInputField(),
-                    if (address.zipCode != null) AddressInputField(address)
+                    CepInputField(address),
+                    AddressInputField(address)
                   ],
                 ),
               );
