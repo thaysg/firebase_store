@@ -50,10 +50,11 @@ class Section extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> save() async {
+  Future<void> save(int pos) async {
     final Map<String, dynamic> data = {
       'name': name,
       'type': type,
+      'pos': pos,
     };
 
     if (id == null) {
