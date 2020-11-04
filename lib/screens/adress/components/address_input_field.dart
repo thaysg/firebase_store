@@ -1,6 +1,8 @@
 import 'package:firebase_store/models/address.dart';
+import 'package:firebase_store/models/cart_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 // ignore: use_key_in_widget_constructors
 class AddressInputField extends StatelessWidget {
@@ -13,14 +15,17 @@ class AddressInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).primaryColor;
 
+    final cartManager = context.watch<CartManager>();
+
     String emptyValidator(String text) =>
         text.isEmpty ? 'Campo obrigatório' : null;
 
-    if (address.zipCode != null) {
+    if (address.zipCode != null && cartManager.deliveryPrice == null) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           TextFormField(
+            enabled: !cartManager.loading,
             initialValue: address.street,
             decoration: const InputDecoration(
               isDense: true,
@@ -34,6 +39,7 @@ class AddressInputField extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
+                  enabled: !cartManager.loading,
                   initialValue: address.number,
                   decoration: const InputDecoration(
                     isDense: true,
@@ -53,6 +59,7 @@ class AddressInputField extends StatelessWidget {
               ),
               Expanded(
                 child: TextFormField(
+                  enabled: !cartManager.loading,
                   initialValue: address.complement,
                   decoration: const InputDecoration(
                     isDense: true,
@@ -65,11 +72,12 @@ class AddressInputField extends StatelessWidget {
             ],
           ),
           TextFormField(
+            enabled: !cartManager.loading,
             initialValue: address.district,
             decoration: const InputDecoration(
               isDense: true,
               labelText: 'Bairro',
-              hintText: 'Guanabara',
+              hintText: 'Centro',
             ),
             validator: emptyValidator,
             onSaved: (t) => address.district = t,
@@ -84,7 +92,7 @@ class AddressInputField extends StatelessWidget {
                   decoration: const InputDecoration(
                     isDense: true,
                     labelText: 'Cidade',
-                    hintText: 'Campinas',
+                    hintText: 'Barretos',
                   ),
                   validator: emptyValidator,
                   onSaved: (t) => address.city = t,
@@ -122,13 +130,30 @@ class AddressInputField extends StatelessWidget {
           const SizedBox(
             height: 8,
           ),
+          if (cartManager.loading)
+            LinearProgressIndicator(
+              valueColor: AlwaysStoppedAnimation(primaryColor),
+              backgroundColor: Colors.transparent,
+            ),
           SizedBox(
             height: 44,
             child: RaisedButton(
               color: primaryColor,
               disabledColor: primaryColor.withAlpha(100),
               textColor: Colors.white,
-              onPressed: () {},
+              onPressed: !cartManager.loading
+                  ? () async {
+                      if (Form.of(context).validate()) {
+                        Form.of(context).save();
+                        try {
+                          await context.read<CartManager>().setAddress(address);
+                        } catch (e) {
+                          Scaffold.of(context)
+                              .showSnackBar(SnackBar(content: Text('$e')));
+                        }
+                      }
+                    }
+                  : null,
               child: const Text(
                 'Calcular Frete',
                 style: TextStyle(fontSize: 18),
@@ -136,6 +161,12 @@ class AddressInputField extends StatelessWidget {
             ),
           ),
         ],
+      );
+    } else if (address.zipCode != null) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 16),
+        child: Text('${address.street}, ${address.number}\n'
+            '${address.district}\n${address.city} - ${address.state}'),
       );
     } else {
       return Container();

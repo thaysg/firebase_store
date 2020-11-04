@@ -10,12 +10,11 @@ class AdressCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 16, 16, 7),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
             child: Consumer<CartManager>(builder: (_, cartManager, __) {
               final address = cartManager.address ?? Address();
-              print(address);
               return Form(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +27,7 @@ class AdressCart extends StatelessWidget {
                       ),
                     ),
                     CepInputField(address),
-                    AddressInputField(address)
+                    AddressInputField(address),
                   ],
                 ),
               );

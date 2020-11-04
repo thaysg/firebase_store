@@ -1,3 +1,5 @@
+import 'package:firebase_store/common/empty_card/empty_card.dart';
+import 'package:firebase_store/common/login_card/login_card.dart';
 import 'package:firebase_store/common/price_card/price_card.dart';
 import 'package:firebase_store/models/cart_manager.dart';
 import 'package:firebase_store/screens/cart/components/cart_tile.dart';
@@ -14,6 +16,17 @@ class CartScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Consumer<CartManager>(builder: (_, cartManager, __) {
+        if (cartManager.user == null) {
+          return LoginCard();
+        }
+
+        if (cartManager.items.isEmpty) {
+          return const EmptyCard(
+            iconData: Icons.remove_shopping_cart,
+            title: 'Nenhum Produto no Carrinho',
+          );
+        }
+
         return ListView(
           children: [
             Column(

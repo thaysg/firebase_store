@@ -8,7 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // ignore: use_key_in_widget_constructors
-class BaseScreen extends StatelessWidget {
+class BaseScreen extends StatefulWidget {
+  @override
+  _BaseScreenState createState() => _BaseScreenState();
+}
+
+class _BaseScreenState extends State<BaseScreen> {
   final PageController pageController = PageController();
 
   @override
