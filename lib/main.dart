@@ -1,11 +1,15 @@
 import 'package:firebase_store/models/admin_users_manage.dart';
 import 'package:firebase_store/models/home_manager.dart';
+import 'package:firebase_store/models/order.dart';
+import 'package:firebase_store/models/orders_manager.dart';
 import 'package:firebase_store/models/product.dart';
 import 'package:firebase_store/models/product_manager.dart';
 import 'package:firebase_store/models/user_manager.dart';
 import 'package:firebase_store/screens/adress/adress_screen.dart';
 import 'package:firebase_store/screens/base/base_screen.dart';
 import 'package:firebase_store/screens/cart/cart_screen.dart';
+import 'package:firebase_store/screens/checkout/checkout_screen.dart';
+import 'package:firebase_store/screens/confirmation/confirmation_screen.dart';
 import 'package:firebase_store/screens/detail_product/detail_product_screen.dart';
 import 'package:firebase_store/screens/edit_product/edit_product_screen.dart';
 import 'package:firebase_store/screens/login/login_screen.dart';
@@ -44,6 +48,12 @@ class MyApp extends StatelessWidget {
           update: (_, userManager, cartManager) =>
               cartManager..updateUser(userManager),
         ),
+        ChangeNotifierProxyProvider<UserManager, OrdersManager>(
+          create: (_) => OrdersManager(),
+          lazy: false,
+          update: (_, userManager, ordersManager) =>
+              ordersManager..updateUser(userManager.user),
+        ),
         ChangeNotifierProxyProvider<UserManager, AdminUsersManager>(
             create: (_) => AdminUsersManager(),
             lazy: false,
@@ -75,18 +85,26 @@ class MyApp extends StatelessWidget {
                   builder: (_) =>
                       DetailProductScreen(settings.arguments as Product));
             case '/cart':
-              return MaterialPageRoute(builder: (_) => CartScreen());
+              return MaterialPageRoute(
+                  builder: (_) => CartScreen(), settings: settings);
             case '/adress':
               return MaterialPageRoute(builder: (_) => AdressScreen());
+            case '/checkout':
+              return MaterialPageRoute(builder: (_) => CheckoutScreen());
             case '/edit_product':
               return MaterialPageRoute(
                   builder: (_) =>
                       EditProductScreen(settings.arguments as Product));
             case '/selected_product':
               return MaterialPageRoute(builder: (_) => SelectedProductScreen());
+            case '/confirmation':
+              return MaterialPageRoute(
+                  builder: (_) =>
+                      ConfirmationScreen(settings.arguments as Order));
             case '/base':
             default:
-              return MaterialPageRoute(builder: (_) => BaseScreen());
+              return MaterialPageRoute(
+                  builder: (_) => BaseScreen(), settings: settings);
           }
         },
       ),
