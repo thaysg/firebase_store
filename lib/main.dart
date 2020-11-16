@@ -1,3 +1,4 @@
+import 'package:firebase_store/models/admin_orders_manager.dart';
 import 'package:firebase_store/models/admin_users_manage.dart';
 import 'package:firebase_store/models/home_manager.dart';
 import 'package:firebase_store/models/order.dart';
@@ -58,7 +59,13 @@ class MyApp extends StatelessWidget {
             create: (_) => AdminUsersManager(),
             lazy: false,
             update: (_, userManager, adminUsersManager) =>
-                adminUsersManager..updateUser(userManager))
+                adminUsersManager..updateUser(userManager)),
+        ChangeNotifierProxyProvider<UserManager, AdminOrdersManager>(
+          create: (_) => AdminOrdersManager(),
+          lazy: false,
+          update: (_, userManager, adminOrdersManager) => adminOrdersManager
+            ..updateAdmin(adminEnabled: userManager.adminEnabled),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

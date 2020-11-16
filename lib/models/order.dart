@@ -3,12 +3,15 @@ import 'package:firebase_store/models/address.dart';
 import 'package:firebase_store/models/cart_manager.dart';
 import 'package:firebase_store/models/cart_product.dart';
 
+enum Status { canceled, preparing, transporting, delivered }
+
 class Order {
   Order.fromCartManager(CartManager cartManager) {
     items = List.from(cartManager.items);
     price = cartManager.totalPrice;
     userID = cartManager.user.id;
     address = cartManager.address;
+    status = Status.preparing;
   }
 
   Order.fromDocument(DocumentSnapshot doc) {
@@ -22,9 +25,18 @@ class Order {
     userID = doc.data['user'] as String;
     address = Address.fromMap(doc.data['address'] as Map<String, dynamic>);
     date = doc.data['data'] as Timestamp;
+
+    status = Status.values[doc.data['status'] as int];
   }
 
   final Firestore firestore = Firestore.instance;
+
+  DocumentReference get firestoreRef =>
+      firestore.collection('orders').document(orderId);
+
+  void updateFromDocument(DocumentSnapshot doc) {
+    status = Status.values[doc.data['status'] as int];
+  }
 
   Future<void> save() async {
     firestore.collection('orders').document(orderId).setData({
@@ -32,7 +44,32 @@ class Order {
       'price': price,
       'user': userID,
       'address': address.toMap(),
+      'date': Timestamp.now(),
+      'status': status.index
     });
+  }
+
+  Function() get back {
+    return status.index >= Status.transporting.index
+        ? () {
+            status = Status.values[status.index - 1];
+            firestoreRef.updateData({'status': status.index});
+          }
+        : null;
+  }
+
+  Function() get advance {
+    return status.index <= Status.transporting.index
+        ? () {
+            status = Status.values[status.index + 1];
+            firestoreRef.updateData({'status': status.index});
+          }
+        : null;
+  }
+
+  void cancel() {
+    status = Status.canceled;
+    firestoreRef.updateData({'status': status.index});
   }
 
   String orderId;
@@ -44,9 +81,28 @@ class Order {
 
   Address address;
 
+  Status status;
+
   Timestamp date;
 
   String get formattedId => '#${orderId.padLeft(6, '0')}';
+
+  String get statusText => getStatusText(status);
+
+  static String getStatusText(Status status) {
+    switch (status) {
+      case Status.canceled:
+        return 'Cancelado';
+      case Status.preparing:
+        return 'Em preparação';
+      case Status.transporting:
+        return 'Em transporte';
+      case Status.delivered:
+        return 'Entregue';
+      default:
+        return '';
+    }
+  }
 
   @override
   String toString() {

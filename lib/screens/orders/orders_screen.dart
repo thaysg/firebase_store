@@ -2,7 +2,7 @@ import 'package:firebase_store/common/custom_drawer/custom_drawer.dart';
 import 'package:firebase_store/common/empty_card/empty_card.dart';
 import 'package:firebase_store/common/login_card/login_card.dart';
 import 'package:firebase_store/models/orders_manager.dart';
-import 'package:firebase_store/screens/orders/components/order_tile.dart';
+import 'package:firebase_store/common/order/order_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

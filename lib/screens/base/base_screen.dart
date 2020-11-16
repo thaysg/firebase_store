@@ -1,6 +1,7 @@
 import 'package:firebase_store/common/custom_drawer/custom_drawer.dart';
 import 'package:firebase_store/models/page_manager.dart';
 import 'package:firebase_store/models/user_manager.dart';
+import 'package:firebase_store/screens/admin_orders/admin_orders_screen.dart';
 import 'package:firebase_store/screens/admin_users/admin_users_screen.dart';
 import 'package:firebase_store/screens/home/home_screen.dart';
 import 'package:firebase_store/screens/orders/orders_screen.dart';
@@ -37,6 +38,7 @@ class _BaseScreenState extends State<BaseScreen> {
             ),
             if (userManager.adminEnabled) ...[
               AdminUsersScreen(),
+              AdminOrdersScreen(),
               Scaffold(
                 drawer: CustomDrawer(),
                 appBar: AppBar(

@@ -2,7 +2,6 @@ import 'package:firebase_store/helpers/validators.dart';
 import 'package:firebase_store/models/user.dart';
 import 'package:firebase_store/models/user_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 // ignore: use_key_in_widget_constructors
@@ -38,7 +37,7 @@ class SignUpScreen extends StatelessWidget {
                     // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       const Icon(
-                        FontAwesomeIcons.bullseye,
+                        Icons.filter_tilt_shift,
                         color: Colors.white,
                       ),
                       const SizedBox(
