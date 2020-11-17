@@ -2,6 +2,8 @@ import 'package:firebase_store/helpers/validators.dart';
 import 'package:firebase_store/models/user.dart';
 import 'package:firebase_store/models/user_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_view.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:provider/provider.dart';
 
 // ignore: use_key_in_widget_constructors
@@ -28,7 +30,7 @@ class LoginScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(
-              height: 40,
+              height: 20,
             ),
             Padding(
               padding: const EdgeInsets.all(20),
@@ -68,9 +70,6 @@ class LoginScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -94,6 +93,15 @@ class LoginScreen extends StatelessWidget {
                               key: formKey,
                               child: Consumer<UserManager>(
                                   builder: (_, userManager, __) {
+                                if (userManager.loadingFace) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation(
+                                          Theme.of(context).primaryColor),
+                                    ),
+                                  );
+                                }
                                 return SingleChildScrollView(
                                   padding: const EdgeInsets.all(16),
                                   child: Column(
@@ -219,12 +227,36 @@ class LoginScreen extends StatelessWidget {
                                               : const Text(
                                                   'Entrar',
                                                   style:
-                                                      TextStyle(fontSize: 18),
+                                                      TextStyle(fontSize: 15),
                                                 ),
                                         ),
                                       ),
                                       const SizedBox(
-                                        height: 15,
+                                        height: 10,
+                                      ),
+                                      SizedBox(
+                                        height: 44,
+                                        child: SignInButton(Buttons.Facebook,
+                                            text: 'Entrar com Facebook',
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(25)),
+                                            onPressed: () {
+                                          userManager.facebookLogin(
+                                              onFail: (e) {
+                                            scaffoldKey.currentState
+                                                .showSnackBar(SnackBar(
+                                              content:
+                                                  Text('Falha ao entrar: $e'),
+                                              backgroundColor: Colors.red,
+                                            ));
+                                          }, onSuccess: () {
+                                            Navigator.of(context).pop();
+                                          });
+                                        }),
+                                      ),
+                                      const SizedBox(
+                                        height: 12,
                                       ),
                                       FlatButton(
                                         onPressed: () {
@@ -232,7 +264,7 @@ class LoginScreen extends StatelessWidget {
                                               .pushReplacementNamed('/sign_up');
                                         },
                                         child: const Text(
-                                          'Ainda não Possui uma Conta'
+                                          'Ainda não Possui uma Conta?'
                                           '\nCrie uma Agora',
                                           textAlign: TextAlign.center,
                                         ),

@@ -45,7 +45,7 @@ class ProductsScreen extends StatelessWidget {
             if (productManager.search.isEmpty) {
               return IconButton(
                   icon: const Icon(
-                    FontAwesomeIcons.search,
+                    Icons.search,
                     size: 22,
                   ),
                   onPressed: () async {
@@ -68,7 +68,7 @@ class ProductsScreen extends StatelessWidget {
             if (userManager.adminEnabled) {
               return IconButton(
                   icon: const Icon(
-                    FontAwesomeIcons.plus,
+                    Icons.add,
                     size: 22,
                   ),
                   onPressed: () {
@@ -86,7 +86,6 @@ class ProductsScreen extends StatelessWidget {
         builder: (_, productManager, __) {
           final filteredProducts = productManager.filteredProducts;
           return ListView.builder(
-              padding: const EdgeInsets.all(6),
               itemCount: filteredProducts.length,
               itemBuilder: (_, index) {
                 return ProductListTile(filteredProducts[index]);

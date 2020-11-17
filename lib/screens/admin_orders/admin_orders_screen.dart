@@ -9,7 +9,12 @@ import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 // ignore: use_key_in_widget_constructors
-class AdminOrdersScreen extends StatelessWidget {
+class AdminOrdersScreen extends StatefulWidget {
+  @override
+  _AdminOrdersScreenState createState() => _AdminOrdersScreenState();
+}
+
+class _AdminOrdersScreenState extends State<AdminOrdersScreen> {
   final PanelController panelController = PanelController();
 
   @override

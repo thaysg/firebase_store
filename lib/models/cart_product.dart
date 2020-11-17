@@ -104,6 +104,8 @@ class CartProduct extends ChangeNotifier {
 
   //Verificar quantidade disponivel no estoque para venda{
   bool get hasStock {
+    if (product != null && product.deleted) return false;
+
     final size = itemSize;
     if (size == null) return false;
     return size.stock >= quantity;

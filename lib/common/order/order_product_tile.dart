@@ -25,6 +25,9 @@ class OrderProductTile extends StatelessWidget {
               width: 60,
               child: Image.network(cartProduct.product.images.first),
             ),
+            const SizedBox(
+              width: 10,
+            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

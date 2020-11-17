@@ -7,6 +7,7 @@ import 'package:firebase_store/screens/home/home_screen.dart';
 import 'package:firebase_store/screens/orders/orders_screen.dart';
 import 'package:firebase_store/screens/products/products_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 // ignore: use_key_in_widget_constructors
@@ -17,6 +18,12 @@ class BaseScreen extends StatefulWidget {
 
 class _BaseScreenState extends State<BaseScreen> {
   final PageController pageController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  }
 
   @override
   Widget build(BuildContext context) {
