@@ -5,6 +5,7 @@ import 'package:firebase_store/models/order.dart';
 import 'package:firebase_store/models/orders_manager.dart';
 import 'package:firebase_store/models/product.dart';
 import 'package:firebase_store/models/product_manager.dart';
+import 'package:firebase_store/models/stores_manager.dart';
 import 'package:firebase_store/models/user_manager.dart';
 import 'package:firebase_store/screens/adress/adress_screen.dart';
 import 'package:firebase_store/screens/base/base_screen.dart';
@@ -43,9 +44,12 @@ class MyApp extends StatelessWidget {
           create: (_) => HomeManager(),
           lazy: false,
         ),
+        ChangeNotifierProvider(
+          create: (_) => StoresManager(),
+        ),
         ChangeNotifierProxyProvider<UserManager, CartManager>(
           create: (_) => CartManager(),
-          lazy: false,
+          //lazy: false,
           update: (_, userManager, cartManager) =>
               cartManager..updateUser(userManager),
         ),

@@ -6,6 +6,7 @@ import 'package:firebase_store/screens/admin_users/admin_users_screen.dart';
 import 'package:firebase_store/screens/home/home_screen.dart';
 import 'package:firebase_store/screens/orders/orders_screen.dart';
 import 'package:firebase_store/screens/products/products_screen.dart';
+import 'package:firebase_store/screens/stores/stores_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -37,12 +38,7 @@ class _BaseScreenState extends State<BaseScreen> {
             HomeScreen(),
             ProductsScreen(),
             OrdersScreen(),
-            Scaffold(
-              drawer: CustomDrawer(),
-              appBar: AppBar(
-                title: const Text('Home4'),
-              ),
-            ),
+            StoresScreen(),
             if (userManager.adminEnabled) ...[
               AdminUsersScreen(),
               AdminOrdersScreen(),
