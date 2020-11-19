@@ -47,6 +47,9 @@
 	<string>Acessar camera para adicionar imagem</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Acessar camera para adicionar imagem</string>
+	<string>comgooglemaps</string>
+    <string>iosamap</string>
+    <string>waze</string>
 
 	
 </dict>

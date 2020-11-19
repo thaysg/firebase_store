@@ -1,6 +1,7 @@
 import 'package:firebase_store/common/custom_icon_button/custom_icon_button.dart';
 import 'package:firebase_store/models/stores.dart';
 import 'package:flutter/material.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StoreCard extends StatelessWidget {
@@ -26,14 +27,56 @@ class StoreCard extends StatelessWidget {
       }
     }
 
+    void showError() {
+      Scaffold.of(context).showSnackBar(const SnackBar(
+        content: Text('Esta função não está disponível neste dispositivo'),
+        backgroundColor: Colors.blue,
+      ));
+    }
+
     Future<void> openPhone() async {
       if (await canLaunch('tel:${store.cleanPhone}')) {
         launch('tel:${store.cleanPhone}');
       } else {
-        Scaffold.of(context).showSnackBar(const SnackBar(
-          content: Text('Esta função não está disponível neste dispositivo'),
-          backgroundColor: Colors.red,
-        ));
+        showError();
+      }
+    }
+
+    Future<void> openMap() async {
+      try {
+        final availableMaps = await MapLauncher.installedMaps;
+
+        showModalBottomSheet(
+            context: context,
+            builder: (_) {
+              return SafeArea(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    for (final map in availableMaps)
+                      ListTile(
+                        onTap: () {
+                          map.showMarker(
+                            coords:
+                                Coords(store.address.lat, store.address.long),
+                            title: store.name,
+                            description: store.addressText,
+                          );
+                          Navigator.of(context).pop();
+                        },
+                        title: Text(map.mapName),
+                        /* leading: Image(
+                          image: map.icon,
+                          width: 30,
+                          height: 30,
+                        ), */
+                      )
+                  ],
+                ),
+              );
+            });
+      } catch (e) {
+        showError();
       }
     }
 
@@ -44,7 +87,7 @@ class StoreCard extends StatelessWidget {
         children: <Widget>[
           // ignore: sized_box_for_whitespace
           Container(
-            height: 160,
+            height: 200,
             child: Stack(
               fit: StackFit.expand,
               children: <Widget>[
@@ -113,7 +156,7 @@ class StoreCard extends StatelessWidget {
                     CustomIConButtton(
                       iconData: Icons.map,
                       color: primaryColor,
-                      onTap: () {},
+                      onTap: openMap,
                     ),
                     CustomIConButtton(
                       iconData: Icons.phone,
