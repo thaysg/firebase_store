@@ -1,1 +1,6 @@
 include: package:lint/analysis_options_package.yaml
+
+linter:
+  rules:
+    use_setters_to_change_properties: false
+    use_key_in_widget_constructors: false

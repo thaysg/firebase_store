@@ -1,6 +1,8 @@
 import 'package:firebase_store/common/price_card/price_card.dart';
 import 'package:firebase_store/models/cart_manager.dart';
 import 'package:firebase_store/models/checkout_manager.dart';
+import 'package:firebase_store/models/credit_card.dart';
+import 'package:firebase_store/screens/checkout/components/cpf_field.dart';
 import 'package:firebase_store/screens/checkout/components/credit_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +11,8 @@ import 'package:provider/provider.dart';
 class CheckoutScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final CreditCard creditCard = CreditCard();
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +56,14 @@ class CheckoutScreen extends StatelessWidget {
               key: formKey,
               child: ListView(
                 children: [
-                  CreditCardWidget(),
+                  CreditCardWidget(creditCard),
+                  CpfField(),
                   PriceCard(
                     buttonText: 'Finalizar Pagamento',
                     onPressed: () {
                       if (formKey.currentState.validate()) {
+                        formKey.currentState.save();
+                        print(creditCard);
                         print('Enviar');
                       }
                       /* checkoutManager.checkout(onStockFail: (e) {

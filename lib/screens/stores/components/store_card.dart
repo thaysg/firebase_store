@@ -65,11 +65,11 @@ class StoreCard extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         title: Text(map.mapName),
-                        /* leading: Image(
+                        leading: Image(
                           image: map.icon,
                           width: 30,
                           height: 30,
-                        ), */
+                        ),
                       )
                   ],
                 ),

@@ -8,6 +8,7 @@ class User {
     id = document.documentID;
     name = document.data['name'] as String;
     email = document.data['email'] as String;
+    cpf = document.data['cpf'] as String;
     if (document.data.containsKey('address')) {
       address =
           Address.fromMap(document.data['address'] as Map<String, dynamic>);
@@ -19,6 +20,8 @@ class User {
   String email;
   String password;
   String confirmPassword;
+
+  String cpf;
 
   bool admin = false;
 
@@ -39,11 +42,17 @@ class User {
       'name': name,
       'email': email,
       if (address != null) 'address': address.toMap(),
+      if (cpf != null) 'cpf': cpf
     };
   }
 
   void setAddress(Address address) {
     this.address = address;
+    saveData();
+  }
+
+  void setCpf(String cpf) {
+    this.cpf = cpf;
     saveData();
   }
 }

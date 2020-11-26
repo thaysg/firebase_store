@@ -1,5 +1,6 @@
 import 'package:brasil_fields/brasil_fields.dart';
 import 'package:credit_card_type_detector/credit_card_type_detector.dart';
+import 'package:firebase_store/models/credit_card.dart';
 import 'package:firebase_store/screens/checkout/components/card_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,12 +17,15 @@ class CardFront extends StatelessWidget {
   final FocusNode dateFocus;
   final FocusNode nameFocus;
 
+  final CreditCard creditCard;
+
   CardFront(
       {Key key,
       this.finished,
       this.numberFocus,
       this.dateFocus,
-      this.nameFocus})
+      this.nameFocus,
+      this.creditCard})
       : super(key: key);
 
   @override
@@ -63,6 +67,7 @@ class CardFront extends StatelessWidget {
                       dateFocus.requestFocus();
                     },
                     focusNode: numberFocus,
+                    onSaved: creditCard.setNumber,
                   ),
                   CardTextField(
                     title: 'Validade',
@@ -77,6 +82,7 @@ class CardFront extends StatelessWidget {
                       nameFocus.requestFocus();
                     },
                     focusNode: dateFocus,
+                    onSaved: creditCard.setexpirationDate,
                   ),
                   CardTextField(
                     title: 'Títular',
@@ -91,7 +97,23 @@ class CardFront extends StatelessWidget {
                       finished();
                     },
                     focusNode: nameFocus,
+                    onSaved: creditCard.setHolder,
                   ),
+                  /* CardTextField(
+                    title: 'Títular',
+                    hint: 'João da Silva',
+                    textInputType: TextInputType.text,
+                    bold: true,
+                    validator: (name) {
+                      if (name.isEmpty) return 'Inválido';
+                      return null;
+                    },
+                    onSubmitted: (_) {
+                      finished();
+                    },
+                    focusNode: nameFocus,
+                    onSaved: creditCard.setHolder,
+                  ), */
                 ],
               ),
             ),
