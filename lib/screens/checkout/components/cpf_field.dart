@@ -12,7 +12,7 @@ class CpfField extends StatelessWidget {
     final userManager = context.watch<UserManager>();
 
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -26,13 +26,11 @@ class CpfField extends StatelessWidget {
             TextFormField(
               initialValue: userManager.user.cpf,
               decoration: const InputDecoration(
-                hintText: '000.000.000-00',
-                isDense: true,
-              ),
+                  hintText: '000.000.000-00', isDense: true),
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,
-                CpfInputFormatter()
+                CpfInputFormatter(),
               ],
               validator: (cpf) {
                 if (cpf.isEmpty) {

@@ -161,6 +161,7 @@ class DetailProductScreen extends StatelessWidget {
                 ))
           ],
         ),
+        //bottomNavigationBar: NavigationBarCustom(),
       ),
     );
   }

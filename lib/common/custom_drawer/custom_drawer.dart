@@ -40,7 +40,7 @@ class CustomDrawer extends StatelessWidget {
                 page: 1,
               ),
               const DrawerTile(
-                iconData: FontAwesomeIcons.cartPlus,
+                iconData: FontAwesomeIcons.book,
                 title: 'Meus Pedidos',
                 page: 2,
               ),
@@ -48,6 +48,11 @@ class CustomDrawer extends StatelessWidget {
                 iconData: FontAwesomeIcons.locationArrow,
                 title: 'Lojas',
                 page: 3,
+              ),
+              const DrawerTile(
+                iconData: FontAwesomeIcons.cartPlus,
+                title: 'Carrinho',
+                page: 4,
               ),
               Consumer<UserManager>(builder: (_, userManager, __) {
                 if (userManager.adminEnabled) {
@@ -58,13 +63,12 @@ class CustomDrawer extends StatelessWidget {
                       const DrawerTile(
                         iconData: FontAwesomeIcons.users,
                         title: 'Usuários',
-                        page: 4,
+                        page: 5,
                       ),
                       const DrawerTile(
-                        // ignore: prefer_const_literals_to_create_immutables, prefer_const_literals_to_create_immutables, prefer_const_literals_to_create_immutables, prefer_const_literals_to_create_immutables, prefer_const_literals_to_create_immutables
-                        iconData: Icons.shopping_basket,
+                        // ignore: prefer_const_literals_to_create_immutables                        iconData: Icons.shopping_basket,
                         title: 'Pedidos',
-                        page: 5,
+                        page: 6,
                       ),
                     ],
                   );

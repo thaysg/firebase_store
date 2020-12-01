@@ -45,6 +45,37 @@ class CartScreen extends StatelessWidget {
           ],
         );
       }),
+
+      //bottomNavigationBar: NavigationBarCustom(),
+      /* bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(
+            icon: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushReplacementNamed('/cart');
+                },
+                child: const Icon(Icons.shopping_cart)),
+            label: 'Carrinho',
+          ),
+          BottomNavigationBarItem(
+            icon: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushReplacementNamed('/home');
+                },
+                child: const Icon(Icons.home)),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+              icon: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed('/products');
+                  },
+                  child: const Icon(Icons.list_alt)),
+              label: 'Produtos'),
+          const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        ],
+      ), */
     );
   }
 }

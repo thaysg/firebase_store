@@ -3,6 +3,7 @@ import 'package:firebase_store/models/page_manager.dart';
 import 'package:firebase_store/models/user_manager.dart';
 import 'package:firebase_store/screens/admin_orders/admin_orders_screen.dart';
 import 'package:firebase_store/screens/admin_users/admin_users_screen.dart';
+import 'package:firebase_store/screens/cart/cart_screen.dart';
 import 'package:firebase_store/screens/home/home_screen.dart';
 import 'package:firebase_store/screens/orders/orders_screen.dart';
 import 'package:firebase_store/screens/products/products_screen.dart';
@@ -39,6 +40,7 @@ class _BaseScreenState extends State<BaseScreen> {
             ProductsScreen(),
             OrdersScreen(),
             StoresScreen(),
+            CartScreen(),
             if (userManager.adminEnabled) ...[
               AdminUsersScreen(),
               AdminOrdersScreen(),

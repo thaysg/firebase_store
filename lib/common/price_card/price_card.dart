@@ -6,7 +6,6 @@ class PriceCard extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
 
-  // ignore: use_key_in_widget_constructors
   const PriceCard({this.buttonText, this.onPressed});
 
   @override
@@ -22,9 +21,7 @@ class PriceCard extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          // ignore: prefer_const_literals_to_create_immutables
           children: [
-            // ignore: prefer_const_literals_to_create_immutables
             const Text(
               'Resumo do Pedido',
               textAlign: TextAlign.start,

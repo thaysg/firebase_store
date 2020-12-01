@@ -65,8 +65,11 @@ class _CepInputFieldState extends State<CepInputField> {
                               .read<CartManager>()
                               .getAddress(cepController.text);
                         } catch (e) {
-                          Scaffold.of(context)
-                              .showSnackBar(SnackBar(content: Text('$e')));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('$e'),
+                            ),
+                          );
                         }
                       }
                     }

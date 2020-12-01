@@ -190,19 +190,18 @@ class LoginScreen extends StatelessWidget {
                                                                 passController
                                                                     .text),
                                                         onFail: (e) {
-                                                          scaffoldKey
-                                                              .currentState
+                                                          ScaffoldMessenger.of(
+                                                                  context)
                                                               .showSnackBar(
-                                                                  SnackBar(
-                                                            content: Text(
-                                                              'Falha ao entrar: $e',
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
+                                                            SnackBar(
+                                                              content: Text(
+                                                                'Falha ao Entrar. $e.',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                              ),
                                                             ),
-                                                            backgroundColor:
-                                                                Colors.red,
-                                                          ));
+                                                          );
                                                         },
                                                         onSuccess: () {
                                                           Navigator.of(context)
@@ -244,12 +243,13 @@ class LoginScreen extends StatelessWidget {
                                             onPressed: () {
                                           userManager.facebookLogin(
                                               onFail: (e) {
-                                            scaffoldKey.currentState
-                                                .showSnackBar(SnackBar(
-                                              content:
-                                                  Text('Falha ao entrar: $e'),
-                                              backgroundColor: Colors.red,
-                                            ));
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content:
+                                                    Text('Falha ao Entar. $e'),
+                                              ),
+                                            );
                                           }, onSuccess: () {
                                             Navigator.of(context).pop();
                                           });

@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProxyProvider<UserManager, CartManager>(
           create: (_) => CartManager(),
-          //lazy: false,
+          lazy: false,
           update: (_, userManager, cartManager) =>
               cartManager..updateUser(userManager),
         ),

@@ -238,16 +238,16 @@ class SignUpScreen extends StatelessWidget {
 
                                                 if (user.password !=
                                                     user.confirmPassword) {
-                                                  scaffoldKey.currentState
+                                                  ScaffoldMessenger.of(context)
                                                       .showSnackBar(
-                                                          const SnackBar(
-                                                    content: Text(
-                                                      'Senhas não coincidem!',
-                                                      textAlign:
-                                                          TextAlign.center,
+                                                    const SnackBar(
+                                                      content: Text(
+                                                        'Senhas Não Coincidem!.',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
                                                     ),
-                                                    backgroundColor: Colors.red,
-                                                  ));
+                                                  );
                                                   return;
                                                 }
 
@@ -258,17 +258,17 @@ class SignUpScreen extends StatelessWidget {
                                                           .pop();
                                                     },
                                                     onFail: (e) {
-                                                      scaffoldKey.currentState
+                                                      ScaffoldMessenger.of(
+                                                              context)
                                                           .showSnackBar(
-                                                              SnackBar(
-                                                        content: Text(
-                                                          'Falha ao cadastrar: $e',
-                                                          textAlign:
-                                                              TextAlign.center,
+                                                        SnackBar(
+                                                          content: Text(
+                                                            'Falha ao Cadastrar-se. $e',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
                                                         ),
-                                                        backgroundColor:
-                                                            Colors.red,
-                                                      ));
+                                                      );
                                                     });
                                               }
                                             },

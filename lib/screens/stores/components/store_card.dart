@@ -28,10 +28,14 @@ class StoreCard extends StatelessWidget {
     }
 
     void showError() {
-      Scaffold.of(context).showSnackBar(const SnackBar(
-        content: Text('Esta função não está disponível neste dispositivo'),
-        backgroundColor: Colors.blue,
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Está função não está disponível nesse dispositivo.',
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
     }
 
     Future<void> openPhone() async {
