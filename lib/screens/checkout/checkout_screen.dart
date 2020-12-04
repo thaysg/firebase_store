@@ -63,18 +63,19 @@ class CheckoutScreen extends StatelessWidget {
                     onPressed: () {
                       if (formKey.currentState.validate()) {
                         formKey.currentState.save();
-                        print(creditCard);
-                        print('Enviar');
                       }
-                      /* checkoutManager.checkout(onStockFail: (e) {
-                        Navigator.of(context).popUntil(
-                            (route) => route.settings.name == '/cart');
-                      }, onSuccess: (order) {
-                        Navigator.of(context)
-                            .popUntil((route) => route.settings.name == '/');
-                        Navigator.of(context)
-                            .pushNamed('/confirmation', arguments: order);
-                      }); */
+                      checkoutManager.checkout(
+                          creditCard: creditCard,
+                          onStockFail: (e) {
+                            Navigator.of(context).popUntil(
+                                (route) => route.settings.name == '/cart');
+                          },
+                          onSuccess: (order) {
+                            Navigator.of(context).popUntil(
+                                (route) => route.settings.name == '/');
+                            Navigator.of(context)
+                                .pushNamed('/confirmation', arguments: order);
+                          });
                     },
                   )
                 ],

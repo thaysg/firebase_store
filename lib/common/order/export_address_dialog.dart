@@ -36,7 +36,6 @@ class ExportAddressDialog extends StatelessWidget {
             Navigator.of(context).pop();
             final file = await screenshotController.capture();
             await GallerySaver.saveImage(file.path);
-            print('ok');
           },
           child: Text(
             'Exportar',

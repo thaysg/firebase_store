@@ -3,9 +3,7 @@ import 'package:firebase_store/screens/checkout/components/card_text_field.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// ignore: use_key_in_widget_constructors
 class CardBack extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
   const CardBack({this.cvvFocus, this.creditCard});
 
   final FocusNode cvvFocus;

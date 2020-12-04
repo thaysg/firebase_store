@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-// ignore: use_key_in_widget_constructors
 class CardFront extends StatelessWidget {
   final MaskTextInputFormatter dateFormatter = MaskTextInputFormatter(
       mask: '!#/####', filter: {'#': RegExp('[0-9]'), '!': RegExp('[0-1]')});
@@ -20,13 +19,11 @@ class CardFront extends StatelessWidget {
   final CreditCard creditCard;
 
   CardFront(
-      {Key key,
-      this.finished,
+      {this.finished,
       this.numberFocus,
       this.dateFocus,
       this.nameFocus,
-      this.creditCard})
-      : super(key: key);
+      this.creditCard});
 
   @override
   Widget build(BuildContext context) {
