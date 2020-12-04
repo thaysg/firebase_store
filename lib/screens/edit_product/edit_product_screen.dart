@@ -1,4 +1,3 @@
-import 'package:firebase_store/common/bottom_navigation/bottom_navigation.dart';
 import 'package:firebase_store/models/product.dart';
 import 'package:firebase_store/models/product_manager.dart';
 import 'package:firebase_store/screens/edit_product/components/images_form.dart';
@@ -161,7 +160,6 @@ class EditProductScreen extends StatelessWidget {
             ],
           ),
         ),
-        bottomNavigationBar: NavigationBarCustom(),
       ),
     );
   }
