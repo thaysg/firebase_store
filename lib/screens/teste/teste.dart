@@ -5,8 +5,15 @@ class Teste extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: Center(
-          child: Text('teste git'),
+        child: Column(
+          children: [
+            Center(
+              child: Text('teste git'),
+            ),
+            Center(
+              child: Text('Git'),
+            )
+          ],
         ),
       ),
     );
