@@ -69,6 +69,7 @@ class CardFront extends StatelessWidget {
                   CardTextField(
                     title: 'Validade',
                     hint: '11/2023',
+                    //maxLength: 5,
                     textInputType: TextInputType.number,
                     inputFormatters: [dateFormatter],
                     validator: (date) {

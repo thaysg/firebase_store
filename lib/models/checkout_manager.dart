@@ -3,6 +3,7 @@ import 'package:firebase_store/models/cart_manager.dart';
 import 'package:firebase_store/models/credit_card.dart';
 import 'package:firebase_store/models/order.dart';
 import 'package:firebase_store/models/product.dart';
+import 'package:firebase_store/services/cielo_payment.dart';
 import 'package:flutter/cupertino.dart';
 
 class CheckoutManager extends ChangeNotifier {
@@ -16,8 +17,8 @@ class CheckoutManager extends ChangeNotifier {
   }
 
   final Firestore firestore = Firestore.instance;
+  final CieloPayment cieloPayment = CieloPayment();
 
-  // ignore: use_setters_to_change_properties
   void updateCart(CartManager cartManager) {
     this.cartManager = cartManager;
   }
@@ -26,15 +27,23 @@ class CheckoutManager extends ChangeNotifier {
       {CreditCard creditCard, Function onStockFail, Function onSuccess}) async {
     loading = true;
 
-    try {
+    print(creditCard.toJason());
+
+    /*final orderId = await _getOrderId();
+
+    cieloPayment.authrorize(
+        creditCard: creditCard,
+        price: cartManager.totalPrice,
+        orderId: orderId.toString(),
+        user: cartManager.user);*/
+
+    /*try {
       await _decrementStock();
     } catch (e) {
       onStockFail(e);
       loading = false;
       return;
     }
-
-    final orderId = await _getOrderId();
 
     final order = Order.fromCartManager(cartManager);
     order.orderId = orderId.toString();
@@ -43,7 +52,7 @@ class CheckoutManager extends ChangeNotifier {
 
     cartManager.clear();
 
-    onSuccess(order);
+    onSuccess(order);*/
 
     loading = false;
   }
